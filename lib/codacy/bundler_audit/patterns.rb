@@ -9,6 +9,15 @@ module Codacy
           @pattern_id = pattern_id
           @filename = filename
         end
+
+        def to_json(*a)
+          {
+              filename: @filename,
+              message: self.message,
+              patternId: @pattern_id,
+              line: self.line
+          }.to_json(*a)
+        end
       end
 
       class UnpatchedGem < Pattern
