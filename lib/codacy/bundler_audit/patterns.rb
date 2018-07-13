@@ -1,7 +1,6 @@
 module Codacy
   module BundlerAudit
     module Patterns
-      ALL_PATTERNS = [UnpatchedGem::PATTERN_ID, InsecureSource::PATTERN_ID]
 
       class Pattern
         attr_reader :file_path, :pattern_id
@@ -33,7 +32,7 @@ module Codacy
       end
 
       class UnpatchedGem < Pattern
-        PATTERN_ID = "Insecure Dependency".freeze
+        PATTERN_ID = 'Insecure Dependency'.freeze
         LINE_REGEX = /^\s*(?<comp>\S+) \([\S.]+\)$/.freeze
 
         # @param [Bundler::Audit::Scanner::UnpatchedGem] issue
@@ -50,7 +49,7 @@ module Codacy
       end
 
       class InsecureSource < Pattern
-        PATTERN_ID = "Insecure Source".freeze
+        PATTERN_ID = 'Insecure Source'.freeze
         LINE_REGEX = /^\s*remote: (?<comp>\S+)$/.freeze
 
         # @param [Bundler::Audit::Scanner::InsecureSource] issue

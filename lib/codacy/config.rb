@@ -11,6 +11,10 @@ module Codacy
     end
 
     class << Config
+      def parse_file(file_path)
+        parse(File.read(file_path))
+      end
+
       def parse(raw_json)
         Config.new(JSON.parse(raw_json))
       end

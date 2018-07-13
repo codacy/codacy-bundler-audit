@@ -3,7 +3,10 @@ require 'find'
 module Codacy
   module BundlerAudit
     class ConfigHelper
-      CONFIG_FILENAME = ".codacy.config".freeze
+      CONFIG_FILENAME = '.codacy.config'.freeze
+      TOOL_NAME = 'bundleraudit'.freeze
+      ALL_PATTERNS_IDS = Set[Patterns::UnpatchedGem::PATTERN_ID,
+                             Patterns::InsecureSource::PATTERN_ID].freeze
 
       class << ConfigHelper
         def parse_config(root)
@@ -28,7 +31,7 @@ module Codacy
       end
 
       def patterns
-        Codacy::BundlerAudit::Patterns::ALL_PATTERNS
+        Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
       end
     end
 
@@ -45,10 +48,20 @@ module Codacy
       end
 
       def patterns
-        @patterns ||=
-            @config.tools
-                .find {|tool| tool.name == "bundler-audit"}
-                .patterns
+        @patterns ||= config_patterns_or_default
+      end
+
+      private
+
+      def config_patterns_or_default
+        tool = @config.tools
+                   .find {|tool| tool.name == ConfigHelper::TOOL_NAME}
+
+        if tool
+          tool.patterns.map {|pattern| pattern.pattern_id}
+        else
+          Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
+        end
       end
     end
   end
