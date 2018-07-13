@@ -1,4 +1,7 @@
 require 'find'
+require 'set'
+require 'codacy/config'
+require 'codacy/bundler_audit/patterns'
 
 module Codacy
   module BundlerAudit
@@ -27,7 +30,7 @@ module Codacy
       end
 
       def gem_files
-        @gem_files ||= Dir.glob("#{@root}/**/Gemfile.lock")
+        @gem_files ||= Dir.glob("#{@root}/**/Gemfile.lock").to_set
       end
 
       def patterns
@@ -45,6 +48,7 @@ module Codacy
         @gem_files ||=
             @config.files
                 .select {|file| File.basename(file) == 'Gemfile.lock'}
+                .to_set
       end
 
       def patterns
@@ -58,7 +62,7 @@ module Codacy
                    .find {|tool| tool.name == ConfigHelper::TOOL_NAME}
 
         if tool
-          tool.patterns.map {|pattern| pattern.pattern_id}
+          tool.patterns.map {|pattern| pattern.pattern_id}.to_set
         else
           Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
         end
