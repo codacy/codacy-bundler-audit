@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.join(File.dirname(__FILE__), "../lib"))
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require "codacy/bundler_audit/app"
+
+dir = ARGV[0] || "/src"
+
+Codacy::BundlerAudit::App.new.run(dir)

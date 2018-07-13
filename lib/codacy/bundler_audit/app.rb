@@ -8,15 +8,18 @@ module Codacy
   module BundlerAudit
     class App
 
-      def run
-        files_read_cache = Hash.new {|h, key| h[key] = read_file_lines(key).to_a}
-        config = Codacy::BundlerAudit::ConfigHelper.parse_config(Dir.pwd)
+      def run(project_root)
+        Dir.chdir(project_root) do
+          files_read_cache = Hash.new {|h, key| h[key] = read_file_lines(key).to_a}
+          config = Codacy::BundlerAudit::ConfigHelper.parse_config(Dir.pwd)
 
-        config
-            .gem_files
-            .flat_map {|file| run_in_dir(File.expand_path("..", file), config)
-                                  .map {|issue| [issue, file]}.to_a}
-            .map {|issue_file| convert_issue(issue_file[0], issue_file[1], files_read_cache[issue_file[1]]).to_json}
+          config
+              .gem_files
+              .flat_map {|file| run_tool_in_dir(File.expand_path("..", file), config)
+                                    .map {|issue| [issue, file]}.to_a}
+              .map {|issue_file| convert_issue(issue_file[0], issue_file[1], files_read_cache[issue_file[1]])}
+              .each {|issue| STDOUT.print("#{issue.to_json}\n\0")}
+        end
       end
 
       def read_file_lines(file)
@@ -25,7 +28,7 @@ module Codacy
 
       # @param [String] directory
       #   The path to the project root.
-      def run_in_dir(directory, config)
+      def run_tool_in_dir(directory, config)
         Dir.chdir(directory) do
           run_with_patterns(config.patterns)
         end
