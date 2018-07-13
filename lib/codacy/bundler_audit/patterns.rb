@@ -1,6 +1,7 @@
 module Codacy
   module BundlerAudit
     module Patterns
+      ALL_PATTERNS = [UnpatchedGem::PATTERN_ID, InsecureSource::PATTERN_ID]
 
       class Pattern
         attr_reader :file_path, :pattern_id
