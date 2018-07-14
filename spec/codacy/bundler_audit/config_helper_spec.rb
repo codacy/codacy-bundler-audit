@@ -1,3 +1,4 @@
+# TODO remove this
 lib = File.expand_path(File.join(File.dirname(__FILE__), "../../../lib"))
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -44,13 +45,28 @@ module Codacy
         end
       end
 
-      it "creates a configuration with all Gemfile.lock in the root directory" do
+      it "creates a configuration with a single Gemfile.lock file when no configuration file exists" do
         Dir.mktmpdir do |dir|
           FileUtils.touch(File.join(dir, 'Gemfile.lock'))
 
           config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
 
           expect(config.gem_files).to contain_exactly(File.join(dir, 'Gemfile.lock'))
+
+          expect(config.patterns).to contain_exactly(*ALL_PATTERNS)
+        end
+      end
+
+      it "creates a configuration with all Gemfile.lock files when no configuration file exists" do
+        Dir.mktmpdir do |dir|
+          FileUtils.touch(File.join(dir, 'Gemfile.lock'))
+          FileUtils.mkdir(File.join(dir, 'other_dir'))
+          FileUtils.touch(File.join(dir, 'other_dir/Gemfile.lock'))
+
+          config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
+
+          expect(config.gem_files).to contain_exactly(File.join(dir, 'Gemfile.lock'),
+                                                      File.join(dir, 'other_dir/Gemfile.lock'))
 
           expect(config.patterns).to contain_exactly(*ALL_PATTERNS)
         end

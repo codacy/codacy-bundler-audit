@@ -9,21 +9,27 @@ module Codacy
     class App
 
       def run(project_root)
+        config = Codacy::BundlerAudit::ConfigHelper.parse_config(Dir.pwd)
+
+        run_with_config(project_root, config)
+            .each {|issue| STDOUT.print("#{issue.to_json}\n\0")}
+      end
+
+
+      def run_with_config(config, project_root)
         Dir.chdir(project_root) do
-          files_read_cache = Hash.new {|h, key| h[key] = read_file_lines(key).to_a}
-          config = Codacy::BundlerAudit::ConfigHelper.parse_config(Dir.pwd)
+          files_read_cache = Hash.new {|h, key| h[key] = read_file_lines(key)}
 
           config
               .gem_files
               .flat_map {|file| run_tool_in_dir(File.expand_path("..", file), config)
                                     .map {|issue| [issue, file]}.to_a}
               .map {|issue_file| convert_issue(issue_file[0], issue_file[1], files_read_cache[issue_file[1]])}
-              .each {|issue| STDOUT.print("#{issue.to_json}\n\0")}
         end
       end
 
       def read_file_lines(file)
-        File.open(file).each_line
+        File.open(file).each_line.to_a
       end
 
       # @param [String] directory

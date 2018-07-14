@@ -1,4 +1,7 @@
 source "https://rubygems.org"
 
 gem "bundler-audit", "~> 0.6.0"
-gem "rspec", "~> 3.7.0"
+
+group :test do
+  gem "rspec", require: false
+end
