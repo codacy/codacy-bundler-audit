@@ -1,10 +1,6 @@
-# TODO remove this
-lib = File.expand_path(File.join(File.dirname(__FILE__), "../../../lib"))
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-
 require 'tmpdir'
-require 'rspec/core'
-require 'codacy/bundler_audit/config_helper'
+require 'spec_helper.rb'
+require 'codacy/bundler_audit/app'
 
 module Codacy
   module BundlerAudit
