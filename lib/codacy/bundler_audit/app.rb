@@ -50,12 +50,13 @@ module Codacy
       end
 
       def run_with_patterns(patterns)
-        case patterns.to_set
-        when Set[Patterns::InsecureSource::PATTERN_ID, Patterns::UnpatchedGem::PATTERN_ID]
+        set = patterns.to_set
+
+        if set == Set[Patterns::InsecureSource::PATTERN_ID, Patterns::UnpatchedGem::PATTERN_ID]
           Bundler::Audit::Scanner.new.scan
-        when Set[Patterns::InsecureSource::PATTERN_ID]
+        elsif set == Set[Patterns::InsecureSource::PATTERN_ID]
           Bundler::Audit::Scanner.new.scan_sources
-        when Set[Patterns::UnpatchedGem::PATTERN_ID]
+        elsif set == Set[Patterns::UnpatchedGem::PATTERN_ID]
           Bundler::Audit::Scanner.new.scan_specs
         else
           # TODO handle error
