@@ -7,14 +7,23 @@ require 'set'
 module Codacy
   module BundlerAudit
     class App
-
       def run(project_root)
+        disable_bundler_audit_network
+
         config = Codacy::BundlerAudit::ConfigHelper.parse_config(Dir.pwd)
 
-        run_with_config(project_root, config)
-            .each {|issue| STDOUT.print("#{issue.to_json}\n\0")}
+        run_with_config(config, project_root)
+            .each {|issue| STDOUT.print("#{issue.to_json}\n")}
       end
 
+
+      def disable_bundler_audit_network
+        Bundler::Audit::Scanner.module_eval do
+          def internal_source?(_uri)
+            false
+          end
+        end
+      end
 
       def run_with_config(config, project_root)
         Dir.chdir(project_root) do
