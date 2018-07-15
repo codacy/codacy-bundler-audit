@@ -3,11 +3,11 @@ module Codacy
     module Patterns
 
       class Pattern
-        attr_reader :file_path, :pattern_id
+        attr_reader :file, :pattern_id
 
-        def initialize(pattern_id, file_path, file_lines, line_regex, regex_match_comp)
+        def initialize(pattern_id, file, file_lines, line_regex, regex_match_comp)
           @pattern_id = pattern_id
-          @file_path = file_path
+          @file = file
           @file_lines = file_lines
           @line_regex = line_regex
           @regex_match_comp = regex_match_comp
@@ -15,7 +15,7 @@ module Codacy
 
         def to_json(*a)
           {
-              file_path: @file_path,
+              file: @file,
               message: self.message,
               patternId: @pattern_id,
               line: self.line
@@ -36,11 +36,11 @@ module Codacy
         LINE_REGEX = /^\s*(?<comp>\S+) \([\S.]+\)$/.freeze
 
         # @param [Bundler::Audit::Scanner::UnpatchedGem] issue
-        # @param [String] file_path
-        def initialize(issue, file_path, file_lines)
-          super(PATTERN_ID, file_path, file_lines, LINE_REGEX, issue.gem.name)
+        # @param [String] file
+        def initialize(issue, file, file_lines)
+          super(PATTERN_ID, file, file_lines, LINE_REGEX, issue.gem.name)
           @issue = issue
-          @file_path = file_path
+          @file = file
         end
 
         def message
@@ -53,8 +53,8 @@ module Codacy
         LINE_REGEX = /^\s*remote: (?<comp>\S+)$/.freeze
 
         # @param [Bundler::Audit::Scanner::InsecureSource] issue
-        def initialize(issue, file_path, file_lines)
-          super(PATTERN_ID, file_path, file_lines, LINE_REGEX, issue.source)
+        def initialize(issue, file, file_lines)
+          super(PATTERN_ID, file, file_lines, LINE_REGEX, issue.source)
           @issue = issue
         end
 

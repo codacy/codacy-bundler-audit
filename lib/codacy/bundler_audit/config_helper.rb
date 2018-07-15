@@ -1,5 +1,6 @@
 require 'find'
 require 'set'
+require 'pathname'
 require 'codacy/config'
 require 'codacy/bundler_audit/patterns'
 
@@ -30,7 +31,9 @@ module Codacy
       end
 
       def gem_files
-        @gem_files ||= Dir.glob("#{@root}/**/Gemfile.lock").to_set
+        @gem_files ||= Dir.chdir(@root) do
+          Dir.glob("**/Gemfile.lock").to_set
+        end
       end
 
       def patterns

@@ -47,7 +47,7 @@ module Codacy
 
           config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
 
-          expect(config.gem_files).to contain_exactly(File.join(dir, 'Gemfile.lock'))
+          expect(config.gem_files).to contain_exactly('Gemfile.lock')
 
           expect(config.patterns).to contain_exactly(*ALL_PATTERNS)
         end
@@ -61,8 +61,8 @@ module Codacy
 
           config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
 
-          expect(config.gem_files).to contain_exactly(File.join(dir, 'Gemfile.lock'),
-                                                      File.join(dir, 'other_dir/Gemfile.lock'))
+          expect(config.gem_files).to contain_exactly('Gemfile.lock',
+                                                      'other_dir/Gemfile.lock')
 
           expect(config.patterns).to contain_exactly(*ALL_PATTERNS)
         end
