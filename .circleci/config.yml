@@ -4,20 +4,22 @@ references:
   default_ruby_job: &default_ruby_job
     docker:
        - image: circleci/ruby:2.5.1
+         environment:
+          BUNDLE_PATH: vendor/bundle
     working_directory: ~/workdir
 
   restore_source_code: &restore_source_code
     restore_cache:
       keys:
-        - source-code-1.0.0-{{ .Branch }}-{{ .Revision }}
-        - source-code-1.0.0-{{ .Branch }}
-        - source-code-1.0.0
+        - source-code-1.0.4-{{ .Branch }}-{{ .Revision }}
+        - source-code-1.0.4-{{ .Branch }}
+        - source-code-1.0.4
 
   restore_dependencies: &restore_dependencies
     restore_cache:
       keys:
-        - dependencies-1.0.0-{{ checksum "Gemfile.lock" }}
-        - dependencies-1.0.0
+        - dependencies-1.0.4-{{ checksum "Gemfile.lock" }}
+        - dependencies-1.0.4
 
   load_docker_file: &load_docker_file
     run:
@@ -53,7 +55,7 @@ jobs:
       - *restore_source_code
       - checkout
       - save_cache:
-          key: source-code-1.0.0-{{ .Branch }}-{{ .Revision }}
+          key: source-code-1.0.4-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/workdir
 
@@ -65,11 +67,11 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle install --jobs=4 --retry=3
       - save_cache:
           paths:
-            - ./vendor/bundle
-          key: dependencies-1.0.0-{{ checksum "Gemfile.lock" }}
+            - vendor/bundle
+          key: dependencies-1.0.4-{{ checksum "Gemfile.lock" }}
 
   run_unit_tests:
     <<: *default_ruby_job
