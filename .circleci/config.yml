@@ -143,7 +143,7 @@ jobs:
             fi
       - run:
           name: Run tests
-          command: sbt run-main codacy.plugins.DockerTest all codacy/$CIRCLE_PROJECT_REPONAME:dev-snapshot
+          command: sbt run-main codacy.plugins.DockerTest all $CIRCLE_PROJECT_REPONAME:dev-snapshot
 
   build_docker_image:
     machine: true
@@ -158,7 +158,7 @@ jobs:
           name: Save docker to file
           command: |
             mkdir workspace
-            docker save --output workspace/codacy-bundler-audit.tar codacy/$CIRCLE_PROJECT_REPONAME:dev-snapshot
+            docker save --output workspace/codacy-bundler-audit.tar $CIRCLE_PROJECT_REPONAME:dev-snapshot
       - persist_to_workspace:
           root: workspace
           paths:
