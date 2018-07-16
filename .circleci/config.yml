@@ -133,7 +133,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Load docker from file
-          command: docker load --input /tmp/workspace/codacy-analysis-cli.tar
+          command: docker load --input /tmp/workspace/codacy-bundler-audit.tar
       - run:
           name: Setup codacy-analysis-cli version for integration tests
           command: |
@@ -143,7 +143,7 @@ jobs:
             fi
       - run:
           name: Run tests
-          command: sbt run-main codacy.plugins.DockerTest all $CIRCLE_PROJECT_REPONAME:dev-snapshot
+          command: sbt "run-main codacy.plugins.DockerTest all $CIRCLE_PROJECT_REPONAME:dev-snapshot"
 
   build_docker_image:
     machine: true
