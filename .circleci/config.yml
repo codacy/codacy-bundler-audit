@@ -8,6 +8,15 @@ references:
           BUNDLE_PATH: vendor/bundle
     working_directory: ~/workdir
 
+  default_java_job: &default_java_job
+    docker:
+      - image: circleci/openjdk:8-jdk
+        environment:
+          JAVA_OPTS: '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1'
+    environment:
+      JAVA_OPTS: -Xmx3200m
+    working_directory: ~/workdir
+
   restore_source_code: &restore_source_code
     restore_cache:
       keys:
@@ -20,6 +29,11 @@ references:
       keys:
         - dependencies-1.0.4-{{ checksum "Gemfile.lock" }}
         - dependencies-1.0.4
+
+  restore_codacy_plugins_test_source_code: &restore_codacy_plugins_test_source_code
+    restore_cache:
+      keys:
+        - codacy-plugins-test-source-code-1.0.4-{{ .Environment.CIRCLE_WORKFLOW_ID }}
 
   load_docker_file: &load_docker_file
     run:
@@ -96,6 +110,41 @@ jobs:
           path: /tmp/unit-test-results
           destination: unit-test-results
 
+  checkout_codacy_plugins_test_source_code:
+    <<: *default_java_job
+    steps:
+      - *restore_source_code
+      - checkout
+      - *restore_codacy_plugins_test_source_code
+      - run:
+          name: Checkout codacy-plugins-test
+          command: ~/workdir/scripts/checkout.sh https://github.com/codacy/codacy-plugins-test.git ~/codacy-plugins-test master
+      - save_cache:
+          key: codacy-plugins-test-source-code-1.0.4-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - ~/codacy-plugins-test
+
+  run_codacy_plugins_test: &run_codacy_plugins_test
+    machine: true
+    working_directory: ~/codacy-plugins-test
+    steps:
+      - *restore_codacy_plugins_test_source_code
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Load docker from file
+          command: docker load --input /tmp/workspace/codacy-analysis-cli.tar
+      - run:
+          name: Setup codacy-analysis-cli version for integration tests
+          command: |
+            if [[ -z "$CODACY_ANALYSIS_CLI_VERSION" ]]
+            then
+              echo 'export CODACY_ANALYSIS_CLI_VERSION="dev-snapshot"' >> $BASH_ENV
+            fi
+      - run:
+          name: Run tests
+          command: sbt run-main codacy.plugins.DockerTest all codacy/$CIRCLE_PROJECT_REPONAME:dev-snapshot
+
   build_docker_image:
     machine: true
     working_directory: ~/workdir
@@ -104,7 +153,7 @@ jobs:
       - *restore_dependencies
       - run:
           name: Publish local docker
-          command: ./scripts/build_docker_image.sh dev-snapshot
+          command: ./scripts/build_docker_image.sh $CIRCLE_PROJECT_REPONAME:dev-snapshot
       - run:
           name: Save docker to file
           command: |
@@ -144,13 +193,18 @@ workflows:
       - build_docker_image:
           requires:
             - checkout_code
-          filters:
-            branches:
-              only:
-                - master
+      - checkout_codacy_plugins_test_source_code:
+          requires:
+            - checkout_code
+      - run_codacy_plugins_test:
+          requires:
+            - checkout_codacy_plugins_test_source_code
+            - build_docker_image
       - publish_dockerhub:
           requires:
             - build_docker_image
+            - run_unit_tests
+            - run_codacy_plugins_test
           filters:
             branches:
               only:
