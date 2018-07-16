@@ -1,29 +1,81 @@
 version: 2
-jobs:
-  build:
+
+references:
+  default_ruby_job: &default_ruby_job
     docker:
        - image: circleci/ruby:2.5.1
-    working_directory: ~/repo
+    working_directory: ~/workdir
+
+  restore_source_code: &restore_source_code
+    restore_cache:
+      keys:
+        - source-code-1.0.0-{{ .Branch }}-{{ .Revision }}
+        - source-code-1.0.0-{{ .Branch }}
+        - source-code-1.0.0
+
+  restore_dependencies: &restore_dependencies
+    restore_cache:
+      keys:
+        - dependencies-1.0.0-{{ checksum "Gemfile.lock" }}
+        - dependencies-1.0.0
+
+  load_docker_file: &load_docker_file
+    run:
+      name: Load docker from file
+      command: docker load --input /tmp/workspace/codacy-bundler-audit.tar
+
+  export_docker_publish_version: &export_docker_publish_version
+    run:
+      name: Export publish version
+      command: echo 'export PUBLISH_VERSION="0.1.0-alpha3.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
+
+  dockerhub_login: &dockerhub_login
+    run:
+      name: Dockerhub login
+      command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+  dockerhub_tag: &dockerhub_tag
+    run:
+      name: Docker tag
+      command: |
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          docker tag codacy/$CIRCLE_PROJECT_REPONAME:dev-snapshot codacy/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
+          docker push codacy/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
+        else
+          echo "Can only tag master branch as stable. Branch attempted: ${CIRCLE_BRANCH}"
+          exit 1
+        fi
+
+jobs:
+  checkout_code:
+    <<: *default_ruby_job
+    steps:
+      - *restore_source_code
+      - checkout
+      - save_cache:
+          key: source-code-1.0.0-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ~/workdir
+
+  install_dependencies:
+    <<: *default_ruby_job
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+      - *restore_dependencies
       - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: dependencies-1.0.0-{{ checksum "Gemfile.lock" }}
 
-      # run tests!
+  run_unit_tests:
+    <<: *default_ruby_job
+    steps:
+      - *restore_source_code
+      - *restore_dependencies
       - run:
           name: run tests
           command: |
@@ -35,10 +87,69 @@ jobs:
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
                             $TEST_FILES
-
       # collect reports
       - store_test_results:
-          path: /tmp/test-results
+          path: /tmp/unit-test-results
       - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+          path: /tmp/unit-test-results
+          destination: unit-test-results
+
+  build_docker_image:
+    machine: true
+    working_directory: ~/workdir
+    steps:
+      - *restore_source_code
+      - *restore_dependencies
+      - run:
+          name: Publish local docker
+          command: ./scripts/build_docker_image.sh dev-snapshot
+      - run:
+          name: Save docker to file
+          command: |
+            mkdir workspace
+            docker save --output workspace/codacy-bundler-audit.tar codacy/$CIRCLE_PROJECT_REPONAME:dev-snapshot
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - codacy-bundler-audit.tar
+
+  publish_dockerhub:
+    machine: true
+    working_directory: ~/workdir
+    steps:
+      - *export_docker_publish_version
+      - attach_workspace:
+          at: /tmp/workspace
+      - *load_docker_file
+      - *export_docker_publish_version
+      - *dockerhub_login
+      - run:
+          name: Publish tag
+          command: echo 'export DOCKER_TAG=$PUBLISH_VERSION' >> $BASH_ENV
+      - *dockerhub_tag
+
+workflows:
+  version: 2
+  test-and-publish:
+    jobs:
+      - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
+      - run_unit_tests:
+          requires:
+            - install_dependencies
+      - build_docker_image:
+          requires:
+            - checkout_code
+          filters:
+            branches:
+              only:
+                - master
+      - publish_dockerhub:
+          requires:
+            - build_docker_image
+          filters:
+            branches:
+              only:
+                - master
