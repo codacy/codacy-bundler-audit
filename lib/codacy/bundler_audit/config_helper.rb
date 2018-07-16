@@ -7,7 +7,7 @@ require 'codacy/bundler_audit/patterns'
 module Codacy
   module BundlerAudit
     class ConfigHelper
-      CONFIG_FILENAME = '.codacy.config'.freeze
+      CONFIG_FILENAME = '.codacy.json'.freeze
       TOOL_NAME = 'bundleraudit'.freeze
       ALL_PATTERNS_IDS = Set[Patterns::UnpatchedGem::PATTERN_ID,
                              Patterns::InsecureSource::PATTERN_ID].freeze

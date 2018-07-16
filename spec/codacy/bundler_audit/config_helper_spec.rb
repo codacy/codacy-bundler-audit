@@ -71,7 +71,7 @@ module Codacy
       def with_tmp_config(config_file)
         Dir.mktmpdir do |dir|
           FileUtils.cp(File.join('spec/resources/codacy_config/', config_file),
-                       File.join(dir, ".codacy.config"))
+                       File.join(dir, ".codacy.json"))
           yield(dir)
         end
       end
