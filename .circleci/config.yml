@@ -153,7 +153,7 @@ jobs:
       - *restore_dependencies
       - run:
           name: Publish local docker
-          command: ./scripts/build_docker_image.sh $CIRCLE_PROJECT_REPONAME:dev-snapshot
+          command: ./scripts/build_docker_image.sh dev-snapshot
       - run:
           name: Save docker to file
           command: |
