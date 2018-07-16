@@ -62,6 +62,19 @@ references:
           exit 1
         fi
 
+  setup_codacy_plugins_test_dependencies_key: &setup_codacy_plugins_test_dependencies_key
+    run:
+      name: Generate cache key
+      command: |
+        cd ~/codacy-plugins-test \
+        shasum build.sbt project/build.properties > /tmp/codacy_plugins_test_dependencies.cache.tmp
+
+  restore_codacy_plugins_test_dependencies: &restore_codacy_plugins_test_dependencies
+    restore_cache:
+      keys:
+        - sbt-ivy2-dependencies-1.0.4-{{ checksum "/tmp/codacy_plugins_test_dependencies.cache.tmp" }}
+        - sbt-ivy2-dependencies-1.0.4
+
 jobs:
   checkout_code:
     <<: *default_ruby_job
@@ -144,6 +157,21 @@ jobs:
       - run:
           name: Run tests
           command: sbt "run-main codacy.plugins.DockerTest all $CIRCLE_PROJECT_REPONAME:dev-snapshot"
+
+  codacy_plugins_test_sbt_dependencies:
+    <<: *default_java_job
+    steps:
+      - *restore_codacy_plugins_test_source_code
+      - *setup_codacy_plugins_test_dependencies_key
+      - *restore_codacy_plugins_test_dependencies
+      - run:
+          name: Resolve dependencies
+          command: sbt update
+      - save_cache:
+          paths:
+            - ~/.ivy2
+            - ~/.sbt
+          key: sbt-ivy2-dependencies-1.0.4-{{ checksum "/tmp/dependencies.cache.tmp" }}
 
   build_docker_image:
     machine: true
