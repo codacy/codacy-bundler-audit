@@ -1,5 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e5139cf6a9e465a84b3d0fe424d9c3d)](https://www.codacy.com/app/Codacy/codacy-bundler-audit?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/codacy-bundler-audit&amp;utm_campaign=Badge_Grade)
 [![CircleCI](https://circleci.com/gh/codacy/codacy-bundler-audit.svg?style=svg)](https://circleci.com/gh/codacy/codacy-bundler-audit)
+[![Docker Version](https://images.microbadger.com/badges/version/codacy/codacy-bundler-audit.svg)](https://microbadger.com/images/codacy/codacy-bundler-audit "Get your own version badge on microbadger.com")
 
 # Codacy Bundler Audit
 
