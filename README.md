@@ -9,7 +9,14 @@ Check the **Docs** section for more information.
 
 ## Usage
 
-TODO
+Run locally:
+`./bin/run <directory to analyse>`
+
+Build docker image:
+`./scripts/build_docker_image.sh <image version>`
+
+Run docker:
+`docker run -it -v $srcDir:/src <DOCKER_NAME>:<DOCKER_VERSION>`
 
 ## Docs
 
