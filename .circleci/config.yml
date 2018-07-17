@@ -96,7 +96,7 @@ jobs:
           path: /tmp/unit-test-results
           destination: unit-test-results
 
-  test_plugin: &test_plugin
+  run_codacy-plugins-test: &run_codacy-plugins-test
     machine: true
     working_directory: ~/
     steps:
@@ -122,10 +122,10 @@ jobs:
       - *restore_source_code
       - *restore_dependencies
       - run:
-          name: Publish local docker
+          name: Build docker image
           command: ./scripts/build_docker_image.sh dev-snapshot
       - run:
-          name: Save docker to file
+          name: Save docker image to file
           command: |
             mkdir workspace
             docker save --output workspace/codacy-bundler-audit.tar $CIRCLE_PROJECT_REPONAME:dev-snapshot
@@ -163,14 +163,14 @@ workflows:
       - build_docker_image:
           requires:
             - checkout_code
-      - test_plugin:
+      - run_codacy-plugins-test:
           requires:
             - build_docker_image
       - publish_dockerhub:
           requires:
             - build_docker_image
             - run_unit_tests
-            - test_plugin
+            - run_codacy-plugins-test
           filters:
             branches:
               only:
