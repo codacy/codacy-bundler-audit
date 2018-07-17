@@ -61,8 +61,10 @@ module Codacy
       private
 
       def config_patterns_or_default
-        tool = @config.tools
-                   .find {|tool| tool.name == ConfigHelper::TOOL_NAME}
+        tool = if @config.tools
+                 @config.tools
+                     .find {|tool| tool.name == ConfigHelper::TOOL_NAME}
+               end
 
         if tool
           tool.patterns.map {|pattern| pattern.pattern_id}.to_set
