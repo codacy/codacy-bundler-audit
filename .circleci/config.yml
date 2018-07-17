@@ -29,7 +29,7 @@ references:
   export_docker_publish_version: &export_docker_publish_version
     run:
       name: Export publish version
-      command: echo 'export PUBLISH_VERSION="0.1.0-alpha3.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
+      command: echo 'export PUBLISH_VERSION="2.0.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
 
   dockerhub_login: &dockerhub_login
     run:
