@@ -1,0 +1,15 @@
+{
+  "name":"bundleraudit",
+  "patterns":[
+    {
+      "patternId":"Insecure Source",
+      "level": "Error",
+      "category": "Security"
+    },
+    {
+      "patternId":"Insecure Dependency",
+      "level": "Error",
+      "category": "Security"
+    }
+  ]
+}

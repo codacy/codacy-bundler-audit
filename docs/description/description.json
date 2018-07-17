@@ -1,0 +1,13 @@
+[
+  {
+    "patternId":"Insecure Dependency",
+    "title":"Disallow insecure dependencies",
+    "description":"Disallow the use of dependencies with know vulnerabilities"
+  },
+  {
+    "patternId":"Insecure Source",
+    "title":"Disallow insecure source URIs",
+    "description":"Disallow the use of sources with insecure URIs",
+    "timeToFix": 5
+  }
+]

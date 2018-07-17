@@ -1,0 +1,14 @@
+##Patterns: Insecure Source
+##Issue: {"severity": "Error", "line": 5, "patternId": "Insecure Source"}
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+
+BUNDLED WITH
+   1.16.2
