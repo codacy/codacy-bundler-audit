@@ -41,8 +41,10 @@ references:
       name: Docker tag
       command: |
         if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          docker tag codacy/$CIRCLE_PROJECT_REPONAME:dev-snapshot codacy/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
+          docker tag $CIRCLE_PROJECT_REPONAME:dev-snapshot codacy/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
           docker push codacy/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
+          docker tag $CIRCLE_PROJECT_REPONAME:dev-snapshot codacy/$CIRCLE_PROJECT_REPONAME:latest
+          docker push codacy/$CIRCLE_PROJECT_REPONAME:latest
         else
           echo "Can only tag master branch as stable. Branch attempted: ${CIRCLE_BRANCH}"
           exit 1
