@@ -19,7 +19,6 @@ module Codacy
         end
       end
 
-
       def disable_bundler_audit_network
         Bundler::Audit::Scanner.module_eval do
           def internal_source?(_uri)
@@ -52,17 +51,23 @@ module Codacy
 
       def run_with_patterns(patterns, directory)
         set = patterns.to_set
+        filename = File.join(directory, "Gemfile.lock")
 
-        if set == Set[Patterns::InsecureSource::PATTERN_ID, Patterns::UnpatchedGem::PATTERN_ID]
-          Bundler::Audit::Scanner.new.scan
-        elsif set == Set[Patterns::InsecureSource::PATTERN_ID]
-          Bundler::Audit::Scanner.new.scan_sources
-        elsif set == Set[Patterns::UnpatchedGem::PATTERN_ID]
-          Bundler::Audit::Scanner.new.scan_specs
-        elsif set.empty?
-          []
-        else
-          [Codacy::FileError.new(File.join(directory, "Gemfile.lock"), "Unexpected patterns to use: #{patterns.to_a}")]
+        begin
+          if set == Set[Patterns::InsecureSource::PATTERN_ID, Patterns::UnpatchedGem::PATTERN_ID]
+            Bundler::Audit::Scanner.new.scan
+          elsif set == Set[Patterns::InsecureSource::PATTERN_ID]
+            Bundler::Audit::Scanner.new.scan_sources
+          elsif set == Set[Patterns::UnpatchedGem::PATTERN_ID]
+            Bundler::Audit::Scanner.new.scan_specs
+          elsif set.empty?
+            []
+          else
+            [Codacy::FileError.new(filename, "Unexpected patterns to use: #{patterns.to_a}")]
+          end
+
+        rescue StandardError => err
+          [Codacy::FileError.new(filename, "Error calling bundler-audit: #{err.to_s}")]
         end
       end
 
