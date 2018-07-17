@@ -8,15 +8,6 @@ references:
           BUNDLE_PATH: vendor/bundle
     working_directory: ~/workdir
 
-  default_java_job: &default_java_job
-    docker:
-      - image: circleci/openjdk:8-jdk
-        environment:
-          JAVA_OPTS: '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1'
-    environment:
-      JAVA_OPTS: -Xmx3200m
-    working_directory: ~/workdir
-
   restore_source_code: &restore_source_code
     restore_cache:
       keys:
@@ -29,11 +20,6 @@ references:
       keys:
         - dependencies-1.0.4-{{ checksum "Gemfile.lock" }}
         - dependencies-1.0.4
-
-  restore_codacy_plugins_test_source_code: &restore_codacy_plugins_test_source_code
-    restore_cache:
-      keys:
-        - codacy-plugins-test-source-code-1.0.4-{{ .Environment.CIRCLE_WORKFLOW_ID }}
 
   load_docker_file: &load_docker_file
     run:
@@ -61,19 +47,6 @@ references:
           echo "Can only tag master branch as stable. Branch attempted: ${CIRCLE_BRANCH}"
           exit 1
         fi
-
-  setup_codacy_plugins_test_dependencies_key: &setup_codacy_plugins_test_dependencies_key
-    run:
-      name: Generate cache key
-      command: |
-        cd ~/codacy-plugins-test \
-        shasum build.sbt project/build.properties > /tmp/codacy_plugins_test_dependencies.cache.tmp
-
-  restore_codacy_plugins_test_dependencies: &restore_codacy_plugins_test_dependencies
-    restore_cache:
-      keys:
-        - sbt-ivy2-dependencies-1.0.4-{{ checksum "/tmp/codacy_plugins_test_dependencies.cache.tmp" }}
-        - sbt-ivy2-dependencies-1.0.4
 
 jobs:
   checkout_code:
@@ -123,41 +96,6 @@ jobs:
           path: /tmp/unit-test-results
           destination: unit-test-results
 
-  checkout_codacy_plugins_test_source_code:
-    <<: *default_java_job
-    steps:
-      - *restore_source_code
-      - checkout
-      - *restore_codacy_plugins_test_source_code
-      - run:
-          name: Checkout codacy-plugins-test
-          command: ~/workdir/scripts/checkout.sh https://github.com/codacy/codacy-plugins-test.git ~/codacy-plugins-test master
-      - save_cache:
-          key: codacy-plugins-test-source-code-1.0.4-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-          paths:
-            - ~/codacy-plugins-test
-
-  run_codacy_plugins_test: &run_codacy_plugins_test
-    machine: true
-    working_directory: ~/codacy-plugins-test
-    steps:
-      - *restore_codacy_plugins_test_source_code
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: Load docker from file
-          command: docker load --input /tmp/workspace/codacy-bundler-audit.tar
-      - run:
-          name: Setup codacy-analysis-cli version for integration tests
-          command: |
-            if [[ -z "$CODACY_ANALYSIS_CLI_VERSION" ]]
-            then
-              echo 'export CODACY_ANALYSIS_CLI_VERSION="dev-snapshot"' >> $BASH_ENV
-            fi
-      - run:
-          name: Run tests
-          command: sbt "run-main codacy.plugins.DockerTest all $CIRCLE_PROJECT_REPONAME:dev-snapshot"
-
   test_plugin: &test_plugin
     machine: true
     working_directory: ~/
@@ -173,28 +111,9 @@ jobs:
             wget -O codacy-plugins-test $(curl https://api.github.com/repos/codacy/codacy-plugins-test/releases | jq -r .[0].assets[0].browser_download_url)
             chmod +x ./codacy-plugins-test
       - run:
-          name: Test json
+          name: Run codacy-plugins-test
           command: |
-            ./codacy-plugins-test -Dcodacy.tests.ignore.descriptions=true all $CIRCLE_PROJECT_REPONAME:dev-snapshot
-      - run:
-          name: Test patterns
-          command: |
-            ./codacy-plugins-test -Dcodacy.tests.noremove=true -Dcodacy.tests.threads=8 pattern $CIRCLE_PROJECT_REPONAME:dev-snapshot
-
-  codacy_plugins_test_sbt_dependencies:
-    <<: *default_java_job
-    steps:
-      - *restore_codacy_plugins_test_source_code
-      - *setup_codacy_plugins_test_dependencies_key
-      - *restore_codacy_plugins_test_dependencies
-      - run:
-          name: Resolve dependencies
-          command: sbt update
-      - save_cache:
-          paths:
-            - ~/.ivy2
-            - ~/.sbt
-          key: sbt-ivy2-dependencies-1.0.4-{{ checksum "/tmp/dependencies.cache.tmp" }}
+            ./codacy-plugins-test all $CIRCLE_PROJECT_REPONAME:dev-snapshot
 
   build_docker_image:
     machine: true
@@ -232,7 +151,7 @@ jobs:
 
 workflows:
   version: 2
-  test-and-publish:
+  test_and_publish:
     jobs:
       - checkout_code
       - install_dependencies:
@@ -244,13 +163,6 @@ workflows:
       - build_docker_image:
           requires:
             - checkout_code
-      - checkout_codacy_plugins_test_source_code:
-          requires:
-            - checkout_code
-      - run_codacy_plugins_test:
-          requires:
-            - checkout_codacy_plugins_test_source_code
-            - build_docker_image
       - test_plugin:
           requires:
             - build_docker_image
@@ -258,7 +170,7 @@ workflows:
           requires:
             - build_docker_image
             - run_unit_tests
-            - run_codacy_plugins_test
+            - test_plugin
           filters:
             branches:
               only:
