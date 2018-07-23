@@ -61,16 +61,12 @@ module Codacy
       private
 
       def config_patterns_or_default
-        tool = if @config.tools
-                 @config.tools
-                     .find {|tool| tool.name == ConfigHelper::TOOL_NAME}
-               end
-
-        if tool
-          tool.patterns.map {|pattern| pattern.pattern_id}.to_set
-        else
-          Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
-        end
+        @config.tools
+            &.find {|tool| tool.name == ConfigHelper::TOOL_NAME}
+            &.patterns
+            &.map {|pattern| pattern.pattern_id}
+            &.to_set ||
+            Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
       end
     end
   end

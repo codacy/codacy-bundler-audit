@@ -1,0 +1,12 @@
+{
+  "files": [
+    "insecure_sources/Gemfile.lock",
+    "unpatched_gems/Gemfile.lock"
+  ],
+  "tools": [
+    {
+      "name": "bundleraudit",
+      "patterns": []
+    }
+  ]
+}

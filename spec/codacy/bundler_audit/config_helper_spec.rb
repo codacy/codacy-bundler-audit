@@ -31,6 +31,28 @@ module Codacy
         end
       end
 
+      it "parses the configuration without the patterns specified, returning all patterns" do
+        with_tmp_config('config_with_null_patterns.json') do |dir|
+          config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
+
+          expect(config.gem_files).to contain_exactly('insecure_sources/Gemfile.lock',
+                                                      'unpatched_gems/Gemfile.lock')
+
+          expect(config.patterns).to contain_exactly(*ALL_PATTERNS)
+        end
+      end
+
+      it "parses the configuration with empty patterns list, returning no patterns" do
+        with_tmp_config('config_with_empty_patterns.json') do |dir|
+          config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
+
+          expect(config.gem_files).to contain_exactly('insecure_sources/Gemfile.lock',
+                                                      'unpatched_gems/Gemfile.lock')
+
+          expect(config.patterns).to be_empty
+        end
+      end
+
       it "creates a configuration with all patterns when no configuration file exists" do
         Dir.mktmpdir do |dir|
           config = Codacy::BundlerAudit::ConfigHelper.parse_config(dir)
