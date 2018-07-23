@@ -7,7 +7,7 @@ module Codacy
     def initialize(json)
       @json = json
       @files = @json["files"]
-      @tools = @json["tools"].map {|tool| Tool.new(tool)}
+      @tools = @json["tools"]&.map {|tool| Tool.new(tool)}
     end
 
     class << Config
@@ -28,7 +28,7 @@ class Tool
   def initialize(json)
     @json = json
     @name = @json["name"]
-    @patterns = @json["patterns"].map {|pattern| Pattern.new(pattern)}
+    @patterns = @json["patterns"]&.map {|pattern| Pattern.new(pattern)}
   end
 end
 
