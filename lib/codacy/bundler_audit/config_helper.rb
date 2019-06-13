@@ -1,14 +1,14 @@
-require 'find'
-require 'set'
-require 'pathname'
-require 'codacy/config'
-require 'codacy/bundler_audit/patterns'
+require "find"
+require "set"
+require "pathname"
+require "codacy/config"
+require "codacy/bundler_audit/patterns"
 
 module Codacy
   module BundlerAudit
     class ConfigHelper
-      CONFIG_FILENAME = '.codacy.json'.freeze
-      TOOL_NAME = 'bundleraudit'.freeze
+      CONFIG_FILENAME = ".codacyrc".freeze
+      TOOL_NAME = "bundleraudit".freeze
       ALL_PATTERNS_IDS = Set[Patterns::UnpatchedGem::PATTERN_ID,
                              Patterns::InsecureSource::PATTERN_ID].freeze
 
@@ -42,16 +42,15 @@ module Codacy
     end
 
     class WithConfigFile
-
       def initialize(config_file_path)
         @config = Codacy::Config.parse_file(config_file_path)
       end
 
       def gem_files
         @gem_files ||=
-            @config.files
-                .select {|file| File.basename(file) == 'Gemfile.lock'}
-                .to_set
+          @config.files
+            .select { |file| File.basename(file) == "Gemfile.lock" }
+            .to_set
       end
 
       def patterns
@@ -62,11 +61,11 @@ module Codacy
 
       def config_patterns_or_default
         @config.tools
-            &.find {|tool| tool.name == ConfigHelper::TOOL_NAME}
-            &.patterns
-            &.map {|pattern| pattern.pattern_id}
-            &.to_set ||
-            Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
+          &.find { |tool| tool.name == ConfigHelper::TOOL_NAME }
+          &.patterns
+          &.map { |pattern| pattern.pattern_id }
+          &.to_set ||
+          Codacy::BundlerAudit::ConfigHelper::ALL_PATTERNS_IDS
       end
     end
   end

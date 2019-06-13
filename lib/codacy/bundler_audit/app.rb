@@ -1,9 +1,9 @@
-require 'bundler/audit/scanner'
-require 'codacy/config'
-require 'codacy/file_error'
-require 'codacy/bundler_audit/patterns'
-require 'codacy/bundler_audit/config_helper'
-require 'set'
+require "bundler/audit/scanner"
+require "codacy/config"
+require "codacy/file_error"
+require "codacy/bundler_audit/patterns"
+require "codacy/bundler_audit/config_helper"
+require "set"
 
 module Codacy
   module BundlerAudit
@@ -12,10 +12,10 @@ module Codacy
         disable_bundler_audit_network
 
         Dir.chdir(project_root) do
-          config = Codacy::BundlerAudit::ConfigHelper.parse_config(Dir.pwd)
+          config = Codacy::BundlerAudit::ConfigHelper.parse_config("/")
 
           run_with_config(config)
-              .each {|issue| STDOUT.print("#{issue.to_json}\n")}
+            .each { |issue| STDOUT.print("#{issue.to_json}\n") }
         end
       end
 
@@ -28,13 +28,15 @@ module Codacy
       end
 
       def run_with_config(config)
-        files_read_cache = Hash.new {|h, key| h[key] = read_file_lines(key)}
+        files_read_cache = Hash.new { |h, key| h[key] = read_file_lines(key) }
 
         config
-            .gem_files
-            .flat_map {|file| run_tool_in_dir(File.expand_path("..", file), config)
-                                  .map {|issue| [issue, file]}.to_a}
-            .map {|issue_file| convert_issue_or_error(issue_file[0], issue_file[1], files_read_cache[issue_file[1]])}
+          .gem_files
+          .flat_map { |file|
+          run_tool_in_dir(File.expand_path("..", file), config)
+            .map { |issue| [issue, file] }.to_a
+        }
+          .map { |issue_file| convert_issue_or_error(issue_file[0], issue_file[1], files_read_cache[issue_file[1]]) }
       end
 
       def read_file_lines(file)
@@ -65,7 +67,6 @@ module Codacy
           else
             [Codacy::FileError.new(filename, "Unexpected patterns to use: #{patterns.to_a}")]
           end
-
         rescue StandardError => err
           [Codacy::FileError.new(filename, "Error calling bundler-audit: #{err.to_s}")]
         end
@@ -83,7 +84,6 @@ module Codacy
           Codacy::FileError.new(filename, "Unexpected result from tool: #{issue_or_error}")
         end
       end
-
     end
   end
 end
