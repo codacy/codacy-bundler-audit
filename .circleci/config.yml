@@ -11,15 +11,15 @@ references:
   restore_source_code: &restore_source_code
     restore_cache:
       keys:
-        - source-code-1.0.4-{{ .Branch }}-{{ .Revision }}
-        - source-code-1.0.4-{{ .Branch }}
-        - source-code-1.0.4
+        - source-code-1.0.6-{{ .Branch }}-{{ .Revision }}
+        - source-code-1.0.6-{{ .Branch }}
+        - source-code-1.0.6
 
   restore_dependencies: &restore_dependencies
     restore_cache:
       keys:
-        - dependencies-1.0.4-{{ checksum "Gemfile.lock" }}
-        - dependencies-1.0.4
+        - dependencies-1.0.6-{{ checksum "Gemfile.lock" }}
+        - dependencies-1.0.6
 
   load_docker_file: &load_docker_file
     run:
@@ -29,7 +29,7 @@ references:
   export_docker_publish_version: &export_docker_publish_version
     run:
       name: Export publish version
-      command: echo 'export PUBLISH_VERSION="2.0.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
+      command: echo 'export PUBLISH_VERSION="3.0.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
 
   dockerhub_login: &dockerhub_login
     run:
@@ -57,7 +57,7 @@ jobs:
       - *restore_source_code
       - checkout
       - save_cache:
-          key: source-code-1.0.4-{{ .Branch }}-{{ .Revision }}
+          key: source-code-1.0.6-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/workdir
 
@@ -73,7 +73,7 @@ jobs:
       - save_cache:
           paths:
             - vendor/bundle
-          key: dependencies-1.0.4-{{ checksum "Gemfile.lock" }}
+          key: dependencies-1.0.6-{{ checksum "Gemfile.lock" }}
 
   run_unit_tests:
     <<: *default_ruby_job
