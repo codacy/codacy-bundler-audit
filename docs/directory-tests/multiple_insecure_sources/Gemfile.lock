@@ -1,7 +1,3 @@
-##Patterns: Insecure Source
-##Issue: {"severity": "Error", "line": 6, "patternId": "Insecure Source"}
-##Issue: {"severity": "Error", "line": 15, "patternId": "Insecure Source"}
-
 GIT
   remote: git://github.com/rails/jquery-rails.git
   revision: c7c8365987f65953f62e2d207083021bf616a6fc
@@ -45,7 +41,7 @@ GEM
     minitest (5.11.3)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
-    rack (1.6.10)
+    rack (1.6.12)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails-deprecated_sanitizer (1.0.3)
