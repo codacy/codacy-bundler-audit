@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<checkstyle version="1.5">
+    <file name="Gemfile.lock">
+        <error source="Insecure Source" line="2" message="Insecure Source URI found: git://github.com/rails/jquery-rails.git" severity="error" />
+        <error source="Insecure Dependency" line="6" message="CSRF Vulnerability in jquery-rails (CVE-2015-1840)" severity="error" />
+    </file>
+</checkstyle>
