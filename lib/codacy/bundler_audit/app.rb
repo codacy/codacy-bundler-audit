@@ -46,8 +46,11 @@ module Codacy
       # @param [String] directory
       #   The path to the project root.
       def run_tool_in_dir(directory, config)
-        Dir.chdir(directory) do
-          run_with_patterns(config.patterns, directory)
+        if Dir.exist?(directory) == false then []
+        else
+          Dir.chdir(directory) do
+            run_with_patterns(config.patterns, directory)   
+          end
         end
       end
 
