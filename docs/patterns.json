@@ -1,15 +1,17 @@
 {
-  "name":"bundleraudit",
-  "patterns":[
+  "name": "bundleraudit",
+  "patterns": [
     {
-      "patternId":"Insecure Source",
+      "patternId": "Insecure Source",
       "level": "Error",
-      "category": "Security"
+      "category": "Security",
+      "subcategory": "InsecureModulesLibraries"
     },
     {
-      "patternId":"Insecure Dependency",
+      "patternId": "Insecure Dependency",
       "level": "Error",
-      "category": "Security"
+      "category": "Security",
+      "subcategory": "InsecureModulesLibraries"
     }
   ]
 }
