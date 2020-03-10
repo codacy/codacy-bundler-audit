@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  codacy: codacy/base@2.3.1
+  codacy: codacy/base@2.7.0
   codacy_plugins_test: codacy/plugins-test@0.10.2
 
 jobs:
   run_unit_tests:
     docker:
-      - image: circleci/ruby:2.5.3
+      - image: circleci/ruby:2.7.0
         environment:
           BUNDLE_PATH: vendor/bundle
     working_directory: ~/workdir
@@ -18,14 +18,12 @@ jobs:
           name: run tests
           command: |
             bundle install --jobs=4 --retry=3
-            mkdir /tmp/test-results
+            mkdir -p /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-
             bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/unit-test-results/rspec.xml \
-                            --format progress \
-                            $TEST_FILES
+                              --format RspecJunitFormatter \
+                              --out /tmp/unit-test-results/rspec.xml \
+                              $TEST_FILES
       # collect reports
       - store_test_results:
           path: /tmp/unit-test-results
