@@ -4,6 +4,7 @@ LABEL maintainer="team@codacy.com"
 
 RUN adduser -u 2004 -D docker
 
+# git is needed for bundler-audit update
 RUN apk add --no-cache git
 
 WORKDIR /opt/docker
