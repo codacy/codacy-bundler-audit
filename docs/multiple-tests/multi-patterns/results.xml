@@ -3,6 +3,7 @@
     <file name="Gemfile.lock">
         <error source="Insecure Source" line="2" message="Insecure Source URI found: git://github.com/rails/jquery-rails.git" severity="error" />
         <error source="Insecure Dependency" line="6" message="CSRF Vulnerability in jquery-rails (CVE-2015-1840)" severity="error" />
+        <error source="Insecure Dependency" line="6" message="Prototype pollution attack through jQuery $.extend (CVE-2019-11358)" severity="error" />
         <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in ActionView (CVE-2020-5267)" severity="error" />
     </file>
 </checkstyle>
