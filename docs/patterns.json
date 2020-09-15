@@ -6,13 +6,15 @@
       "patternId": "Insecure Source",
       "level": "Error",
       "category": "Security",
-      "subcategory": "InsecureModulesLibraries"
+      "subcategory": "InsecureModulesLibraries",
+      "enabled": true
     },
     {
       "patternId": "Insecure Dependency",
       "level": "Error",
       "category": "Security",
-      "subcategory": "InsecureModulesLibraries"
+      "subcategory": "InsecureModulesLibraries",
+      "enabled": true
     }
   ]
 }
