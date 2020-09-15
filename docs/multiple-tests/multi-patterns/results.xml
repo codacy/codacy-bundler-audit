@@ -8,6 +8,7 @@
         <error source="Insecure Dependency" line="13" message="Possible Strong Parameters Bypass in ActionPack (CVE-2020-8164)" severity="error" />
         <error source="Insecure Dependency" line="20" message="CSRF Vulnerability in rails-ujs (CVE-2020-8167)" severity="error" />
         <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in ActionView (CVE-2020-5267)" severity="error" />
+        <error source="Insecure Dependency" line="20" message="Potential XSS vulnerability in Action View (CVE-2020-15169)" severity="error" />
         <error source="Insecure Dependency" line="20" message="Potential remote code execution of user-provided local names in ActionView (CVE-2020-8163)" severity="error" />
         <error source="Insecure Dependency" line="26" message="Potentially unintended unmarshalling of user-provided objects in MemCacheStore and RedisCacheStore (CVE-2020-8165)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Directory traversal in Rack::Directory app bundled with Rack (CVE-2020-8161)" severity="error" />
