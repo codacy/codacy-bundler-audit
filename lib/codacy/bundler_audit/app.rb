@@ -77,9 +77,9 @@ module Codacy
 
       def convert_issue_or_error(issue_or_error, filename, file_lines)
         case issue_or_error
-        when Bundler::Audit::Scanner::UnpatchedGem
+        when Bundler::Audit::Results::UnpatchedGem
           Codacy::BundlerAudit::Patterns::UnpatchedGem.new(issue_or_error, filename, file_lines)
-        when Bundler::Audit::Scanner::InsecureSource
+        when Bundler::Audit::Results::InsecureSource
           Codacy::BundlerAudit::Patterns::InsecureSource.new(issue_or_error, filename, file_lines)
         when Codacy::FileError
           issue_or_error
