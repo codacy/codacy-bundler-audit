@@ -7,7 +7,7 @@ orbs:
 jobs:
   run_unit_tests:
     docker:
-      - image: circleci/ruby:2.7.0
+      - image: cimg/ruby:3.0.2
         environment:
           BUNDLE_PATH: vendor/bundle
     working_directory: ~/workdir
