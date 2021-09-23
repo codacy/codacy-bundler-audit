@@ -2,7 +2,7 @@ FROM ruby:3.0.2-slim
 
 LABEL maintainer="team@codacy.com"
 
-RUN adduser -u 2004 -D docker
+RUN adduser -u 2004 --disabled-password docker
 
 # git is needed for bundler-audit update
 RUN apk add --no-cache git
