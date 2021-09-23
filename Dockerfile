@@ -6,7 +6,7 @@ LABEL maintainer="team@codacy.com"
 RUN apk add --no-cache git
 
 WORKDIR /work
-
+RUN gem install bundler:2.2.27
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN bundle config set no-cache 'true' && \
