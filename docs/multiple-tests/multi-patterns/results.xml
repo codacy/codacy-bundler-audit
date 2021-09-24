@@ -4,6 +4,7 @@
         <error source="Insecure Source" line="2" message="Insecure Source URI found: git://github.com/rails/jquery-rails.git" severity="error" />
         <error source="Insecure Dependency" line="6" message="CSRF Vulnerability in jquery-rails (CVE-2015-1840)" severity="error" />
         <error source="Insecure Dependency" line="6" message="Prototype pollution attack through jQuery $.extend (CVE-2019-11358)" severity="error" />
+        <error source="Insecure Dependency" line="6" message="Potential XSS vulnerability in jQuery (CVE-2020-11023)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Ability to forge per-form CSRF tokens given a global CSRF token (CVE-2020-8166)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible Strong Parameters Bypass in ActionPack (CVE-2020-8164)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible DoS Vulnerability in Action Controller Token Authentication (CVE-2021-22904)" severity="error" />
