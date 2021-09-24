@@ -3,9 +3,11 @@ FROM ruby:3.0.2-alpine3.13
 LABEL maintainer="team@codacy.com"
 
 # git is needed for bundler-audit update
-RUN apk add --no-cache git
+RUN adduser -u 2004 -D docker && \
+    apk add --no-cache git
 
-WORKDIR /work
+WORKDIR /opt/docker
+USER docker
 
 COPY Gemfile .
 COPY Gemfile.lock .
@@ -19,4 +21,4 @@ COPY docs /docs
 
 WORKDIR /src
 
-ENTRYPOINT ["/work/bin/run"]
+ENTRYPOINT ["/opt/docker/bin/run"]
