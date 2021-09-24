@@ -19,4 +19,4 @@ COPY docs /docs
 
 WORKDIR /src
 
-ENTRYPOINT ["/opt/docker/bin/run"]
+ENTRYPOINT ["/work/bin/run"]
