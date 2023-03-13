@@ -1,2 +1,1 @@
-Bundler-Audit is a dependency analysis tool for [bundler](https://github.com/bundler/bundler#readme)
-that checks for vulnerable versions of dependencies and insecure gem sources in Gemfile.lock. [Learn more](https://github.com/rubysec/bundler-audit#readme)
+bundler-audit is a dependency analysis tool for bundler that checks for vulnerable versions of dependencies and insecure gem sources in Gemfile.lock. [Learn more](https://github.com/rubysec/bundler-audit)
