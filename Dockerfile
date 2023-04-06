@@ -1,4 +1,4 @@
-FROM ruby:3.2.0-alpine3.17
+FROM ruby:3.0.2-alpine3.14
 
 LABEL maintainer="team@codacy.com"
 
