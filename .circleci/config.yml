@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  codacy: codacy/base@2.7.0
-  codacy_plugins_test: codacy/plugins-test@0.15.4
+  codacy: codacy/base@10.2.2
+  codacy_plugins_test: codacy/plugins-test@1.1.1
 
 jobs:
   run_unit_tests:
     docker:
-      - image: cimg/ruby:3.0.2
+      - image: cimg/ruby:3.2.2
         environment:
           BUNDLE_PATH: vendor/bundle
     working_directory: ~/workdir
