@@ -19,14 +19,5 @@
         <error source="Insecure Dependency" line="26" message="Potentially unintended unmarshalling of user-provided objects in MemCacheStore and RedisCacheStore (CVE-2020-8165)" severity="error" />
         <error source="Insecure Dependency" line="26" message="ReDoS based DoS vulnerability in Active Support’s underscore (CVE-2023-22796)" severity="error" />
         <error source="Insecure Dependency" line="26" message="Possible XSS Security Vulnerability in SafeBuffer#bytesplice (CVE-2023-28120)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Directory traversal in Rack::Directory app bundled with Rack (CVE-2020-8161)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Percent-encoded cookies can be used to overwrite existing prefixed cookie names (CVE-2020-8184)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Denial of Service Vulnerability in Rack Multipart Parsing (CVE-2022-30122)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Denial of service via header parsing in Rack (CVE-2022-44570)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Denial of Service Vulnerability in Rack Content-Disposition parsing (CVE-2022-44571)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Denial of service via multipart parsing in Rack (CVE-2022-44572)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible DoS Vulnerability in Multipart MIME parsing (CVE-2023-27530)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible shell escape sequence injection vulnerability in Rack (CVE-2022-30123)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack's header parsing (CVE-2023-27539)" severity="error" />
     </file>
 </checkstyle>
