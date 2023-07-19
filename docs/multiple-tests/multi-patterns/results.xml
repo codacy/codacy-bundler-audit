@@ -27,8 +27,6 @@
         <error source="Insecure Dependency" line="44" message="Denial of service via multipart parsing in Rack (CVE-2022-44572)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Possible DoS Vulnerability in Multipart MIME parsing (CVE-2023-27530)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Possible shell escape sequence injection vulnerability in Rack (CVE-2022-30123)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack\u2019s header parsing (CVE-2023-27530)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack\\u2019s header parsing (CVE-2023-27530)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack\\u2019s header parsing (CVE-2023-27539)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack's header parsing (CVE-2023-27539)" severity="error" />
     </file>
 </checkstyle>
