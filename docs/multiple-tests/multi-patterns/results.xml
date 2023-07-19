@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <checkstyle version="1.5">
     <file name="Gemfile.lock">
-        <error source="Insecure Source" line="2" message="Insecure Source URI found: https://github.com/rails/jquery-rails.git" severity="error" />
         <error source="Insecure Dependency" line="6" message="CSRF Vulnerability in jquery-rails (CVE-2015-1840)" severity="error" />
         <error source="Insecure Dependency" line="6" message="Prototype pollution attack through jQuery $.extend (CVE-2019-11358)" severity="error" />
         <error source="Insecure Dependency" line="6" message="Potential XSS vulnerability in jQuery (CVE-2020-11023)" severity="error" />
+        <error source="Insecure Dependency" line="6" message="Cross-Site Scripting (XSS) in jquery (CVE-2015-9251)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Ability to forge per-form CSRF tokens given a global CSRF token (CVE-2020-8166)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible Strong Parameters Bypass in ActionPack (CVE-2020-8164)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible DoS Vulnerability in Action Controller Token Authentication (CVE-2021-22904)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="ReDoS based DoS vulnerability in Action Dispatch (CVE-2023-22792)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="ReDoS based DoS vulnerability in Action Dispatch (CVE-2023-22795)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible XSS via User Supplied Values to redirect_to (CVE-2023-28362)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible Information Disclosure / Unintended Method Execution in Action Pack (CVE-2021-22885)" severity="error" />
         <error source="Insecure Dependency" line="20" message="CSRF Vulnerability in rails-ujs (CVE-2020-8167)" severity="error" />
         <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in ActionView (CVE-2020-5267)" severity="error" />
         <error source="Insecure Dependency" line="20" message="Potential XSS vulnerability in Action View (CVE-2020-15169)" severity="error" />
-        <error source="Insecure Dependency" line="26" message="Potentially unintended unmarshalling of user-provided objects in MemCacheStore and RedisCacheStore (CVE-2020-8165)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Directory traversal in Rack::Directory app bundled with Rack (CVE-2020-8161)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Percent-encoded cookies can be used to overwrite existing prefixed cookie names (CVE-2020-8184)" severity="error" />
-        <error source="Insecure Dependency" line="13" message="ReDoS based DoS vulnerability in Action Dispatch (CVE-2023-22792)" severity="error" />
-        <error source="Insecure Dependency" line="13" message="ReDoS based DoS vulnerability in Action Dispatch (CVE-2023-22795)" severity="error" />
-        <error source="Insecure Dependency" line="13" message="Possible XSS via User Supplied Values to redirect_to (CVE-2023-28362)" severity="error" />
         <error source="Insecure Dependency" line="20" message="Possible XSS Vulnerability in Action View tag helpers (CVE-2022-27777)" severity="error" />
+        <error source="Insecure Dependency" line="26" message="Potentially unintended unmarshalling of user-provided objects in MemCacheStore and RedisCacheStore (CVE-2020-8165)" severity="error" />
         <error source="Insecure Dependency" line="26" message="ReDoS based DoS vulnerability in Active Support’s underscore (CVE-2023-22796)" severity="error" />
         <error source="Insecure Dependency" line="26" message="Possible XSS Security Vulnerability in SafeBuffer#bytesplice (CVE-2023-28120)" severity="error" />
-        <error source="Insecure Dependency" line="6" message="Cross-Site Scripting (XSS) in jquery (CVE-2015-9251)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Directory traversal in Rack::Directory app bundled with Rack (CVE-2020-8161)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Percent-encoded cookies can be used to overwrite existing prefixed cookie names (CVE-2020-8184)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Denial of Service Vulnerability in Rack Multipart Parsing (CVE-2022-30122)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Denial of service via header parsing in Rack (CVE-2022-44570)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Denial of Service Vulnerability in Rack Content-Disposition parsing (CVE-2022-44571)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Denial of service via multipart parsing in Rack (CVE-2022-44572)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Possible DoS Vulnerability in Multipart MIME parsing (CVE-2023-27530)" severity="error" />
-        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack’s header parsing (CVE-2023-27530)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack\u2019s header parsing (CVE-2023-27539)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible shell escape sequence injection vulnerability in Rack (CVE-2022-30123)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack\u2019s header parsing (CVE-2023-27530)" severity="error" />
     </file>
 </checkstyle>
