@@ -4,6 +4,7 @@
         <error source="Insecure Dependency" line="6" message="CSRF Vulnerability in jquery-rails (CVE-2015-1840)" severity="error" />
         <error source="Insecure Dependency" line="6" message="Prototype pollution attack through jQuery $.extend (CVE-2019-11358)" severity="error" />
         <error source="Insecure Dependency" line="6" message="Potential XSS vulnerability in jQuery (CVE-2020-11023)" severity="error" />
+        <error source="Insecure Dependency" line="6" message="Potential XSS vulnerability in jQuery (CVE-2020-11022)" severity="error" />
         <error source="Insecure Dependency" line="6" message="Cross-Site Scripting (XSS) in jquery (CVE-2015-9251)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Ability to forge per-form CSRF tokens given a global CSRF token (CVE-2020-8166)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible Strong Parameters Bypass in ActionPack (CVE-2020-8164)" severity="error" />
