@@ -20,5 +20,10 @@
         <error source="Insecure Dependency" line="26" message="Potentially unintended unmarshalling of user-provided objects in MemCacheStore and RedisCacheStore (CVE-2020-8165)" severity="error" />
         <error source="Insecure Dependency" line="26" message="ReDoS based DoS vulnerability in Active Support’s underscore (CVE-2023-22796)" severity="error" />
         <error source="Insecure Dependency" line="26" message="Possible XSS Security Vulnerability in SafeBuffer#bytesplice (CVE-2023-28120)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri updates packaged libxml2 to v2.12.7 to resolve CVE-2024-34459 (GHSA-r95h-9x8f-r3f7)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Use-after-free in libxml2 via Nokogiri::XML::Reader (GHSA-xc9x-jj77-9p9j)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Denial of Service Vulnerability in Rack Content-Type Parsing (CVE-2024-25126)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack Header Parsing (CVE-2024-26146)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible DoS Vulnerability with Range Header in Rack (CVE-2024-26141)" severity="error" />
     </file>
 </checkstyle>
