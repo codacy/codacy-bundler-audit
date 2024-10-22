@@ -25,5 +25,7 @@
         <error source="Insecure Dependency" line="44" message="Denial of Service Vulnerability in Rack Content-Type Parsing (CVE-2024-25126)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Possible Denial of Service Vulnerability in Rack Header Parsing (CVE-2024-26146)" severity="error" />
         <error source="Insecure Dependency" line="44" message="Possible DoS Vulnerability with Range Header in Rack (CVE-2024-26141)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible ReDoS vulnerability in HTTP Token authentication in Action Controller (CVE-2024-47887)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible ReDoS vulnerability in query parameter filtering in Action Dispatch (CVE-2024-41128)" severity="error" />
     </file>
 </checkstyle>
