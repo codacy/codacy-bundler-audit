@@ -1,6 +1,6 @@
 {
   "name": "bundleraudit",
-  "version": "0.9.1",
+  "version": "0.9.3",
   "patterns": [
     {
       "patternId": "Insecure Source",
