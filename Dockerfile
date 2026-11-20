@@ -12,7 +12,8 @@ USER docker
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN bundle config set no-cache 'true' && \
-    bundle install --without=test && \
+    bundle config set without 'test' && \
+    bundle install && \
     bundler-audit update
 
 COPY lib lib
