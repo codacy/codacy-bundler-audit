@@ -41,8 +41,12 @@ workflows:
             - codacy/checkout_and_version
       - codacy/shell:
           name: publish_local
+          # Release image: latest ruby-advisory-db. Test image: DB pinned to
+          # .ruby-advisory-db-ref so docs/ expected results don't drift.
           cmd: |
             docker build -t $CIRCLE_PROJECT_REPONAME:latest .
+            docker save --output docker-image-release.tar $CIRCLE_PROJECT_REPONAME:latest
+            docker build --build-arg ADVISORY_DB_REF="$(cat .ruby-advisory-db-ref)" -t $CIRCLE_PROJECT_REPONAME:latest .
             docker save --output docker-image.tar $CIRCLE_PROJECT_REPONAME:latest
           persist_to_workspace: true
           requires:
@@ -54,6 +58,7 @@ workflows:
             - publish_local
       - codacy/publish_docker:
           context: CodacyDocker
+          path: docker-image-release.tar
           requires:
             - run_unit_tests
             - plugins_test

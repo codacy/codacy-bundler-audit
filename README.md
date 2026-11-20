@@ -31,6 +31,17 @@ Run docker:
 We use the [codacy-plugins-test](https://github.com/codacy/codacy-plugins-test) to test our external tools integration.
 You can follow the instructions there to make sure your tool is working as expected.
 
+The expected results in `docs/` depend on two inputs, and both are frozen on purpose:
+
+- **The fixture lockfiles** (`docs/**/Gemfile.lock`) have no `Gemfile` beside them. The tool only reads
+  `Gemfile.lock`, and without a `Gemfile` Dependabot can't bump these deliberately vulnerable fixtures.
+- **The ruby-advisory-db** used by the test image is pinned to the commit in `.ruby-advisory-db-ref`
+  (CI builds it with `--build-arg ADVISORY_DB_REF=...`). The released image is built without the
+  argument and always ships the latest DB.
+
+To pick up newer advisories in the tests, update `.ruby-advisory-db-ref` and regenerate the
+affected `results.xml` in the same PR.
+
 # What is Codacy?
 
 [Codacy](https://www.codacy.com/) is an Automated Code Review Tool that monitors your technical debt, helps you improve your code quality, teaches best practices to your developers, and helps you save time in Code Reviews.
