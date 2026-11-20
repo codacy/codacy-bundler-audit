@@ -21,9 +21,8 @@ RUN bundle config set no-cache 'true' && \
 # Set (CI test image): pin the DB to that commit so docs/ expected results stay stable.
 ARG ADVISORY_DB_REF=""
 RUN if [ -n "$ADVISORY_DB_REF" ]; then \
-      cd "$HOME/.local/share/ruby-advisory-db" && \
-      git fetch --quiet origin "$ADVISORY_DB_REF" && \
-      git checkout --quiet "$ADVISORY_DB_REF"; \
+      git -C "$HOME/.local/share/ruby-advisory-db" fetch --quiet origin "$ADVISORY_DB_REF" && \
+      git -C "$HOME/.local/share/ruby-advisory-db" checkout --quiet "$ADVISORY_DB_REF"; \
     fi
 
 COPY lib lib
