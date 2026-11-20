@@ -4,13 +4,14 @@ LABEL maintainer="team@codacy.com"
 
 # git is needed for bundler-audit update
 RUN adduser -u 2004 -D docker && \
-    apk add --no-cache git
+    apk add --no-cache git && \
+    mkdir -p /opt/docker && \
+    chown docker:docker /opt/docker
 
 WORKDIR /opt/docker
 USER docker
 
-COPY Gemfile .
-COPY Gemfile.lock .
+COPY --chown=docker:docker Gemfile Gemfile.lock ./
 RUN bundle config set no-cache 'true' && \
     bundle config set without 'test' && \
     bundle install && \
