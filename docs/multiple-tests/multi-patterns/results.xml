@@ -27,5 +27,85 @@
         <error source="Insecure Dependency" line="44" message="Possible DoS Vulnerability with Range Header in Rack (CVE-2024-26141)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible ReDoS vulnerability in HTTP Token authentication in Action Controller (CVE-2024-47887)" severity="error" />
         <error source="Insecure Dependency" line="13" message="Possible ReDoS vulnerability in query parameter filtering in Action Dispatch (CVE-2024-41128)" severity="error" />
+        <error source="Insecure Dependency" line="33" message="A large number of adjacent CSS comments can trigger a SystemStackError (GHSA-wwpr-jff3-395c)" severity="error" />
+        <error source="Insecure Dependency" line="37" message="CSS url() sanitization bypass via escaped parentheses in Loofah (GHSA-m3x9-938q-5767)" severity="error" />
+        <error source="Insecure Dependency" line="32" message="Concurrent Ruby - ReadWriteLock allows wrong-thread write release and stray read-release counter corruption (CVE-2026-54906)" severity="error" />
+        <error source="Insecure Dependency" line="32" message="Concurrent Ruby - `AtomicReference#update` livelocks when the stored value is `Float::NAN` (CVE-2026-54904)" severity="error" />
+        <error source="Insecure Dependency" line="32" message="Concurrent Ruby - `ReentrantReadWriteLock` read-count overflow grants a write lock without exclusivity (CVE-2026-54905)" severity="error" />
+        <error source="Insecure Dependency" line="33" message="Deeply nested CSS blocks and functions can trigger a SystemStackError or excessive memory usage (GHSA-6jxj-px6v-747w)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Escape Sequence Injection vulnerability in Rack lead to Possible Log Injection (CVE-2025-27111)" severity="error" />
+        <error source="Insecure Dependency" line="33" message="Incorrect tokenization of bad URLs enables CSS sanitizer bypass (GHSA-pq4g-8rxf-4g29)" severity="error" />
+        <error source="Insecure Dependency" line="33" message="Large numeric exponents cause CPU and memory denial of service (GHSA-6wmf-3r64-vcwv)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Local File Inclusion in Rack::Static (CVE-2025-27610)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Missing SameSite attribute on session cookies from Action Pack session stores (GHSA-gmj8-hvj3-49mw)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Multipart boundary guard skips a leading empty or quoted `boundary` parameter, allowing parser differentials and WAF bypass (GHSA-p8x9-v4hv-2w4g)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Multipart parser buffers large non‑file fields entirely in memory, enabling DoS (memory exhaustion) (CVE-2025-61771)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Multipart parser retains parsed data in its scan buffer, allowing denial of service via memory exhaustion. (GHSA-5v64-555j-wjxm)" severity="error" />
+        <error source="Insecure Dependency" line="37" message="Mutation XSS in Loofah HTML5 scrubbers through unescaped attribute values (GHSA-h6v6-rg66-fqj4)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri CSS selector tokenizer has regular expression backtracking (GHSA-c4rq-3m3g-8wgx)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri XSLT transform has a memory leak (GHSA-v2fc-qm4h-8hqv)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri does not check the return value from xmlC14NExecute (GHSA-wx95-c6cv-8532)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri patches vendored libxml2 to resolve multiple CVEs (GHSA-353f-x4gh-cqq8)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri updates packaged libxml2 to 2.13.6 to resolve CVE-2025-24928 and CVE-2024-56171 (GHSA-vvfq-8hwr-qm4m)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri updates packaged libxml2 to v2.13.8 to resolve CVE-2025-32414 and CVE-2025-32415 (GHSA-5w6v-399v-w3cc)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri updates packaged libxslt to v1.1.43 to resolve multiple CVEs (GHSA-mrxw-mxhj-p664)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper classes (GHSA-9cv2-cfxc-v4v2)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]` (GHSA-5prr-v3j2-97mh)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Possible Use-After-Free in XInclude Processing (GHSA-wfpw-mmfh-qq69)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=` raises an exception (GHSA-5v8h-3h3q-446p)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Possible Use-After-Free when directly using `NokogirI::XML::XPathContext` beyond document lifetime (GHSA-p67v-3w7g-wjg7)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid node type (GHSA-wjv4-x9w8-wm3h)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: Possible Use-After-Free when setting an attribute value via `Nokogiri::XML::Attr#value=` or `#content=` (GHSA-phwj-rprq-35pp)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Nokogiri: XML::Schema on JRuby allows network requests when NONET is set, bypassing CVE-2020-26247 (GHSA-8678-w3jw-xfc2)" severity="error" />
+        <error source="Insecure Dependency" line="33" message="Non-ASCII characters cause superlinear CPU consumption (GHSA-8vfg-2r28-hvhj)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible DoS vulnerability in Action Controller Live streaming (GHSA-rwvh-fw6r-pwvp)" severity="error" />
+        <error source="Insecure Dependency" line="26" message="Possible DoS vulnerability in Active Support safe_constantize (GHSA-8474-xrp6-wh69)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Possible Log Injection in Rack::CommonLogger (CVE-2025-25184)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Possible Mutation XSS when serializing `noscript` content in `Nokogiri::HTML5` documents (GHSA-4p39-36wj-23h4)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Possible SSRF on JRuby when resolving external DTDs or entities with `NONET` set (GHSA-v995-44v6-5fqm)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible Strong Parameters bypass in Parameters#each_key in Action Pack (GHSA-wm3x-v3qw-4jh3)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="Possible XSS via shared scrubber state in concurrent rails-html-sanitizer calls (GHSA-h7wh-q2qr-458c)" severity="error" />
+        <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in Action View highlight helper (GHSA-v6rj-xm57-3p59)" severity="error" />
+        <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in Action View strip_tags (GHSA-rq8q-p985-fjq7)" severity="error" />
+        <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in Action View tag helpers (GHSA-68p9-83h6-5wpj)" severity="error" />
+        <error source="Insecure Dependency" line="20" message="Possible XSS vulnerability in Action View text helpers (GHSA-2p2f-4rq4-gjwc)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="Possible XSS vulnerability with certain configurations of rails-html-sanitizer (GHSA-cj75-f6xr-r4g7)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible cache poisoning in Action Pack content negotiation (GHSA-r9jg-fmfx-2gv6)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Possible invalid memory read when calling `Nokogiri::XML::Node#initialize_copy_with_args` with incorrect argument type (GHSA-g9g8-vgvw-g3vf)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="Possible regular expression denial of service with certain configurations of rails-html-sanitizer (GHSA-cpgf-5mjf-73p7)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible restoration of destroyed sessions in Action Dispatch CacheStore (GHSA-2586-8ghr-69fj)" severity="error" />
+        <error source="Insecure Dependency" line="13" message="Possible sensitive session information leak in Active Storage proxy mode (GHSA-x6mj-8jx9-qhqv)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has Content-Length mismatch in Rack::Files error responses (CVE-2026-34831)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has a Directory Traversal via Rack:Directory (CVE-2026-22860)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has a Possible Information Disclosure Vulnerability (CVE-2025-61780)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has a root directory disclosure via unescaped regex interpolation in Rack::Directory (CVE-2026-34763)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has an Unbounded-Parameter DoS in Rack::QueryParser (CVE-2025-46727)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has an unsafe default in Rack::QueryParser allows params_limit bypass via semicolon-separated parameters (CVE-2025-59830)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack has quadratic complexity in Rack::Utils.select_best_encoding via wildcard Accept-Encoding header (CVE-2026-34230)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack is vulnerable to a memory-exhaustion DoS through unbounded URL-encoded body parsing (CVE-2025-61919)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack session gets restored after deletion (CVE-2025-32441)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack's greedy multipart boundary parsing can cause parser differentials and WAF bypass. (CVE-2026-26961)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack's multipart byte range processing allows denial of service via excessive overlapping ranges (CVE-2026-34826)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack's multipart parser buffers unbounded per-part headers, enabling DoS (memory exhaustion) (CVE-2025-61772)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack's multipart parsing without Content-Length header allows unbounded chunked file uploads (CVE-2026-34829)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack's unbounded multipart preamble buffering enables DoS (memory exhaustion) (CVE-2025-61770)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack:: Static header_rules bypass via URL-encoded paths (CVE-2026-34786)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack::Sendfile header-based X-Accel-Mapping regex injection enables unauthorized X-Accel-Redirect (CVE-2026-34830)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack::Static `header_rules` bypass via unnormalized dot segments in the request path (GHSA-wvg4-6p58-3gh3)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Rack::Static prefix matching can expose unintended files under the static root (CVE-2026-34785)" severity="error" />
+        <error source="Insecure Dependency" line="26" message="Rails Active Support has a possible DoS vulnerability in its number helpers (CVE-2026-33176)" severity="error" />
+        <error source="Insecure Dependency" line="26" message="Rails Active Support has a possible ReDoS vulnerability in number_to_delimited (CVE-2026-33169)" severity="error" />
+        <error source="Insecure Dependency" line="26" message="Rails Active Support has a possible XSS vulnerability in SafeBuffer#% (CVE-2026-33170)" severity="error" />
+        <error source="Insecure Dependency" line="20" message="Rails has a possible XSS vulnerability in its Action View tag helpers (CVE-2026-33168)" severity="error" />
+        <error source="Insecure Dependency" line="37" message="Regular expression denial of service in Loofah's SVG local-reference check (GHSA-mf2j-8f84-cc9q)" severity="error" />
+        <error source="Insecure Dependency" line="37" message="SVG `&lt;textPath&gt;` and `&lt;mpath&gt;` bypass local-reference restriction in Loofah (GHSA-345x-3rq2-jfrm)" severity="error" />
+        <error source="Insecure Dependency" line="37" message="SVG `href` attribute bypasses local-reference restriction in Loofah (GHSA-9wjq-cp2p-hrgf)" severity="error" />
+        <error source="Insecure Dependency" line="44" message="Stored XSS in Rack::Directory via javascript: filenames rendered into anchor href (CVE-2026-25500)" severity="error" />
+        <error source="Insecure Dependency" line="41" message="Use-After-Free in Nokogiri when replacing an attribute value (GHSA-3w22-6jfg-527w)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="rails-html-sanitizer has XSS vulnerability with certain configurations (CVE-2024-53985)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="rails-html-sanitizer has XSS vulnerability with certain configurations (CVE-2024-53986)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="rails-html-sanitizer has XSS vulnerability with certain configurations (CVE-2024-53987)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="rails-html-sanitizer has XSS vulnerability with certain configurations (CVE-2024-53988)" severity="error" />
+        <error source="Insecure Dependency" line="53" message="rails-html-sanitizer has XSS vulnerability with certain configurations (CVE-2024-53989)" severity="error" />
     </file>
 </checkstyle>
